@@ -5,8 +5,8 @@ import createsocketMiddlemare from './creatSocketMiddleware';
 import rootReducer from './reducers/index';
 
 // let API_URL = process.env.API_URL; development should be http://localhost:8080
-const apiUrl = process.env.API_URL;
-console.log('testing11:::', apiUrl);
+// const apiUrl = process.env.API_URL;
+const apiUrl = 'http://localhost:8080';
 const mySocket = io.connect(apiUrl);
 
 function saveToSessionStorage(state) {
