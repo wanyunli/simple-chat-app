@@ -1,6 +1,16 @@
 const R = require('ramda');
-const server = require('http').createServer();
+const path = require('path');
+const express = require('express');
+
+const app = express();
+const server = require('http').createServer(app);
 const io = require('socket.io')(server);
+
+const rootPath = path.join(__dirname, '../../dist');
+app.use(express.static(rootPath));
+app.use((req, res, next) => {
+  res.sendFile(path.join(rootPath, 'index.html'));
+});
 let { userList, chatrooms, messageId } = require('./presetValues');
 
 const isNotNil = R.complement(R.isNil);

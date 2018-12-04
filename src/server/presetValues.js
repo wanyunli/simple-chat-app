@@ -13,12 +13,27 @@ const userList = [
     id: 3,
     name: 'Poly',
     clientId: null
+  },
+  {
+    id: 4,
+    name: 'Pilot',
+    clientId: null
+  },
+  {
+    id: 5,
+    name: 'Johnny',
+    clientId: null
+  },
+  {
+    id: 6,
+    name: 'Dog',
+    clientId: null
   }
 ];
 const chatrooms = [
   {
     id: 1,
-    name: 'Tranfer Chatroom',
+    name: 'Transfer Chatroom',
     ioClients: []
   },
   {
@@ -28,12 +43,12 @@ const chatrooms = [
   },
   {
     id: 3,
-    name: 'Traval in Finland Chatroom',
+    name: 'Travel in Finland Chatroom',
     ioClients: []
   },
   {
     id: 4,
-    name: 'Traval in Europe Chatroom',
+    name: 'Travel in Europe Chatroom',
     ioClients: []
   }
 ];

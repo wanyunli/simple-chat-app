@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AvailableUsers from './container/AvailableUsers';
 import Chatrooms from './container/ChatroomsContainer';
 import Chatroom from './container/ChatroomContainer';
@@ -32,9 +32,12 @@ const App = ({ classes }) => (
         <TopBar />
         <div className={classes.center}>
           <WrapperContainer>
-            <Route exact path="/" component={AvailableUsers} />
-            <Route path="/chatrooms" component={Chatrooms} />
-            <Route path="/chatroom" component={Chatroom} />
+            <Switch>
+              <Route exact path="/" component={AvailableUsers} />
+              <Route path="/chatrooms" component={Chatrooms} />
+              <Route path="/chatroom" component={Chatroom} />
+              <Route component={AvailableUsers} />
+            </Switch>
           </WrapperContainer>
         </div>
       </div>

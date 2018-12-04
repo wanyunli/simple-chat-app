@@ -4,11 +4,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import createsocketMiddlemare from './creatSocketMiddleware';
 import rootReducer from './reducers/index';
 
-// let API_URL = process.env.API_URL; development should be http://localhost:8080
-// const apiUrl = process.env.API_URL;
-const apiUrl = 'http://localhost:8080';
+const apiUrl = process.env.API_URL;
 const mySocket = io.connect(apiUrl);
-
 function saveToSessionStorage(state) {
   try {
     const serializedState = JSON.stringify(state);

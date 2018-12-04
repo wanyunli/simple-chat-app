@@ -3,10 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
-const env = process.env.NODE_ENV;
 const outputDirectory = 'dist';
-
-module.exports = {
+module.exports = (env, argv) => ({
   entry: ['babel-polyfill', './src/client/index.js'],
   output: {
     path: path.join(__dirname, outputDirectory),
@@ -46,7 +44,7 @@ module.exports = {
       favicon: './public/favicon.ico'
     }),
     new Dotenv({
-      path: `./.env.${env === 'production' ? '' : 'development'}`
+      path: `./.env.${argv.mode === 'production' ? 'production' : 'development'}`
     })
   ]
-};
+});

@@ -30,7 +30,7 @@ class Wrapper extends React.Component {
 }
 
 Wrapper.propTypes = {
-  children: PropTypes.array,
+  children: PropTypes.object,
   selectedChatroom: PropTypes.object,
   selectedUser: PropTypes.object,
   classes: PropTypes.object.isRequired,

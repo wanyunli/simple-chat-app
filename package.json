@@ -15,6 +15,7 @@
   "dependencies": {
     "@material-ui/core": "^3.5.1",
     "@material-ui/icons": "^3.0.1",
+    "acorn": "^6.0.0",
     "babel-polyfill": "^6.26.0",
     "dotenv-webpack": "^1.5.7",
     "express": "^4.16.4",
