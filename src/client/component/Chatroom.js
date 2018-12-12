@@ -162,7 +162,7 @@ Chatroom.propTypes = {
     })
   ),
   user: PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.string,
     name: PropTypes.string
   }),
   selectedChatroom: PropTypes.shape({

@@ -19,6 +19,7 @@
     "babel-polyfill": "^6.26.0",
     "dotenv-webpack": "^1.5.7",
     "express": "^4.16.4",
+    "mongoose": "^5.3.15",
     "prop-types": "^15.6.2",
     "ramda": "^0.26.1",
     "react": "^16.5.2",

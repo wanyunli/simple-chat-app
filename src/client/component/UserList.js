@@ -23,6 +23,7 @@ class UserList extends React.Component {
   }
 
   handleClick = (user, setUser, history) => {
+    console.log('here user is:', user);
     setUser(user);
     history.replace({
       pathname: '/chatrooms'
@@ -62,7 +63,7 @@ class UserList extends React.Component {
 UserList.propTypes = {
   users: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number,
+      id: PropTypes.string,
       name: PropTypes.string
     })
   ),

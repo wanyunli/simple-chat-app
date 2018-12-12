@@ -5,13 +5,16 @@ const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
+const User = require('./model/user');
+let { userList, chatrooms, messageId } = require('./presetValues');
+const { updateClientId, findAailableUsers } = require('./control/user');
+require('./connect');
 
 const rootPath = path.join(__dirname, '../../dist');
 app.use(express.static(rootPath));
 app.use((req, res, next) => {
   res.sendFile(path.join(rootPath, 'index.html'));
 });
-let { userList, chatrooms, messageId } = require('./presetValues');
 
 const isNotNil = R.complement(R.isNil);
 function setClientIdForUser(clientId, userId) {
@@ -55,17 +58,21 @@ function removeClientIdFormChatroom(clientId, chatroomId) {
   });
 }
 
-function getAvailableUsers() {
-  return userList
-    .filter(item => item.clientId === null)
-    .map(item => ({ id: item.id, name: item.name }));
-}
+// async function getAvailableUsers() {
+//   const result = await findAailableUsers();
+//   console.log('result is: ', result);
+//   return result;
+// return userList
+//   .filter(item => item.clientId === null)
+//   .map(item => ({ id: item.id, name: item.name }));
+// }
 function getChatrooms() {
   return chatrooms.map(item => ({ id: item.id, name: item.name }));
 }
 
 function handleSetUser(client, data) {
-  setClientIdForUser(client.id, data.id);
+  // setClientIdForUser(client.id, data.id);
+  updateClientId(data.id, client.id);
 }
 
 function handleRefreshPage(client, data) {
@@ -75,7 +82,8 @@ function handleRefreshPage(client, data) {
     removeClientIdFormChatroom(oldClientId, chatroomId);
   }
   if (isNotNil(userId)) {
-    setClientIdForUser(client.id, userId);
+    updateClientId(userId, client.id);
+    // setClientIdForUser(client.id, userId);
   }
   if (isNotNil(chatroomId)) {
     addClientIdForChatroom(client.id, chatroomId);
@@ -83,12 +91,13 @@ function handleRefreshPage(client, data) {
 }
 
 function handleRemoveUser(userId) {
-  userList = userList.map(item => (item.id === userId
-    ? {
-      ...item,
-      clientId: null
-    }
-    : item));
+  updateClientId(userId, null);
+  // userList = userList.map(item => (item.id === userId
+  //   ? {
+  //     ...item,
+  //     clientId: null
+  //   }
+  //   : item));
 }
 
 function handleLeaveChatroom(clientId, chatroomId) {
@@ -107,8 +116,9 @@ function handleLeaveChatroom(clientId, chatroomId) {
 
 io.on('connection', (client) => {
   client.on('disconnect', () => {});
-  client.on('getAvailableUsers', () => {
-    client.emit('availableUsers', getAvailableUsers());
+  client.on('getAvailableUsers', async () => {
+    const result = await findAailableUsers();
+    client.emit('availableUsers', result);
   });
   client.on('setUser', (data) => {
     handleSetUser(client, data);
@@ -142,4 +152,5 @@ io.on('connection', (client) => {
     console.log(`Received error from client(${client.id}): `, error);
   });
 });
+// addInitialUser();
 server.listen(8080);
